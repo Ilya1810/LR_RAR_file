@@ -1,0 +1,5 @@
+*.depend
+*.rar
+*.layout
+bin/
+obj/
