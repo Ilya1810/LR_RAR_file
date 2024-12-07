@@ -6,7 +6,7 @@
 
 using namespace std;
 
-//Установить 1-байтовое выравнивание
+// Установить 1-байтовое выравнивание
 #pragma pack(push, 1)
 
 // Объявление структуры для общей части заголовка
@@ -16,6 +16,20 @@ struct rar_header
     uint8_t header_type;
     uint16_t header_flag;
     uint16_t header_size;
+};
+
+// Объявление структуры для загловка файловой записи
+struct file_head
+{
+    uint64_t pack_size;//! Размер упакованного файла
+    uint64_t unp_size;
+    uint8_t host_OS;
+    uint64_t file_crc;
+    uint64_t file_time;
+    uint8_t unp_ver;
+    uint8_t method;
+    uint16_t name_size;//! Размер имени упакованного файла
+    uint64_t file_attr;
 };
 
 // Восстановить выравнивание
@@ -32,7 +46,6 @@ int main()
         rar_file.seekg(0, ios::end);
         int rar_size = rar_file.tellg();
         rar_file.seekg(0, ios::beg);
-        cout << rar_size << endl;
 
         // Считать данные из файла
         vector<char> rar_data(rar_size, 0);
